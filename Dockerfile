@@ -1,16 +1,14 @@
 FROM python:3.9.20-alpine3.19
 
-# Copy the requirements file into the container
+# Install PostgreSQL dependencies
+RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev
+
+# Copy and install requirements
 COPY requirements.txt /app/requirements.txt
-
-# Set up a virtual environment
 RUN python -m venv /app/.venv
-
-# Install dependencies
 RUN /app/.venv/bin/pip install -r /app/requirements.txt
 
-# Set environment variables
+# Set PATH to use virtual environment
 ENV PATH="/app/.venv/bin:$PATH"
 
-# Run the uvicorn server with the correct syntax
 CMD ["uvicorn", "main:app", "--reload"]
