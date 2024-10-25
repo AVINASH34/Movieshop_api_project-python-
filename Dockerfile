@@ -5,7 +5,7 @@ RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev
 
 # Copy app files and install dependencies
 COPY requirements.txt /app/requirements.txt
-COPY main.py /app/main.py
+COPY . /app
 WORKDIR /app
 RUN python -m venv /app/.venv
 RUN /app/.venv/bin/pip install -r /app/requirements.txt
